@@ -6,7 +6,6 @@
 package vista;
 
 
-import controlador.Profesor;
 import javax.swing.JOptionPane;
 import modelo.Metodos_sql;
 import java.awt.Color;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import modelo.Metodos_Admin;
 import vista.DashboardPadre;
 import static vista.DashboardProfesor.maximized;
 
@@ -25,12 +25,12 @@ import static vista.DashboardProfesor.maximized;
  *
  * @author daniel
  */
-public class Login extends javax.swing.JFrame {
+public class LoginAdmin extends javax.swing.JFrame {
 
-  Metodos_sql metodos = new Metodos_sql();
+  Metodos_Admin metodos = new Metodos_Admin();
     
     
-    public Login() {
+    public LoginAdmin() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -254,9 +254,9 @@ public class Login extends javax.swing.JFrame {
     private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizeActionPerformed
         if(maximized){
             //handle fullscreen - taskbar
-            Login.this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            LoginAdmin.this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            Login.this.setMaximizedBounds(env.getMaximumWindowBounds());
+            LoginAdmin.this.setMaximizedBounds(env.getMaximumWindowBounds());
             maximized = false;
         }else{
             setExtendedState(JFrame.NORMAL);
@@ -293,20 +293,21 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new LoginAdmin().setVisible(true);
             }
         });
     }
@@ -332,42 +333,18 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void aceptar() {
-        if (getUser().charAt(0) == 'A') { // sila primera letra del username es A
-        JOptionPane.showMessageDialog(null,"Los alumnos no tieen acceso a este sistema"); // el alumno no tendrá acceso
-        } 
-        else {
-           String busqueda_usuario = metodos.buscarUsuarioRegistrado(getUser(), getPass());
-        
-        if (busqueda_usuario.equals("usuario encontrado")) {
-            String busqueda_nombre = metodos.buscar(txtUsuario.getText());
-            String busqueda_id = metodos.buscarId(txtUsuario.getText());
-            //DOCENTE LOGIN
-            if (getUser().charAt(0) == 'D') {
-               JOptionPane.showMessageDialog(null,"Bienvenido profesor " + busqueda_nombre);
-               DashboardProfesor ingreso = new DashboardProfesor();
-               
-               
-               ingreso.lnlNombre.setText(busqueda_nombre); 
-               ingreso.lnlCodigo.setText((busqueda_id));
-               ingreso.setVisible(true);
-               this.dispose();
-            } else if(getUser().charAt(0) == 'd'){
+      
+        String busqueda_usuario = metodos.buscarAdminRegistrado(getUser(),getPass());
             
-                JOptionPane.showMessageDialog(null,"Ingrese la primera letra en mayúscula");   
-               // PADRE LOGIN
-            } else if (getUser().charAt(0) == 'P' || getUser().charAt(0) == 'p') {
-               JOptionPane.showMessageDialog(null,"Bienvenido padre " + busqueda_nombre);
-               DashboardPadre ingreso = new DashboardPadre();
-               ingreso.lnlNombre.setText(busqueda_nombre);
-               ingreso.lblCodigo.setText((busqueda_id));
+        if (busqueda_usuario.equals("usuario encontrado")) { 
+            String busqueda_nombre = metodos.buscarNombre(getUser());
+             JOptionPane.showMessageDialog(null,"Bienvenido " + busqueda_nombre);
+               DashboardAdmin ingreso = new DashboardAdmin();
+               /*ingreso.lnlNombre.setText(busqueda_nombre);     */         
                ingreso.setVisible(true);
                this.dispose();
-            }
-        } else{
-                 JOptionPane.showMessageDialog(null,"Usuario no registrado");
-                 txtUsuario.setText("");
-                 txtPassword.setText("");
-         }
+            
+                     
         }
       
     }

@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- *
+ 
  * @author daniel
  */
 public class conexionBD {
@@ -22,7 +22,7 @@ public class conexionBD {
         Connection con = null;
         
         try{
-        Class.forName(clase); //solicita el driver
+        Class.forName(clase); //controlador para solicitar la conexion
        con = DriverManager.getConnection(url,user,password); //se realiza la conexion a las variables para acceder a las bases de datos
        
         } catch(Exception e){

@@ -3,36 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package vista.registroAlumno;
 
 
+import vista.registroProfesor.*;
+import controlador.Grado;
 import controlador.Profesor;
+import controlador.Cursos;
+import vista.*;
 import javax.swing.JOptionPane;
-import modelo.Metodos_sql;
+import modelo.Metodos_Admin;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.sql.Date;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import vista.DashboardPadre;
-import static vista.DashboardProfesor.maximized;
+import vista.registroProfesor.AgregarCursoProfesor;
+
 
 
 /**
  *
  * @author daniel
  */
-public class Login extends javax.swing.JFrame {
+public class RegistroAlumno extends javax.swing.JFrame {
 
-  Metodos_sql metodos = new Metodos_sql();
+  Metodos_Admin metodos = new Metodos_Admin();
+  
     
     
-    public Login() {
+    public RegistroAlumno() {
         initComponents();
         setLocationRelativeTo(null);
+       
+        
+      
     }
 
     /**
@@ -45,18 +56,21 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JPasswordField();
+        txtDireccionA = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        dfaf = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnMinimize = new javax.swing.JButton();
         btnMaximize = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtFechaA = new javax.swing.JTextField();
+        txtNombreA = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        cbxGeneroA = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -65,18 +79,9 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(620, 436));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("USUARIO");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
-
-        txtUsuario.setBorder(null);
-        txtUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 150, 30));
-
-        txtPassword.setBorder(null);
-        txtPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 270, 150, 30));
+        txtDireccionA.setBorder(null);
+        txtDireccionA.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel1.add(txtDireccionA, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 150, 30));
 
         btnCancelar.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
@@ -92,12 +97,12 @@ public class Login extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 120, 30));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 120, 30));
 
         btnAceptar.setBackground(new java.awt.Color(51, 153, 0));
         btnAceptar.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar.setText("INGRESAR");
+        btnAceptar.setText("ACEPTAR");
         btnAceptar.setBorder(null);
         btnAceptar.setContentAreaFilled(false);
         btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -108,18 +113,12 @@ public class Login extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 120, 30));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 120, 30));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("CONTRASEÑA");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/logo.png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 290, 140, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Gambar/usuario.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 220, 130));
+        dfaf.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        dfaf.setForeground(new java.awt.Color(255, 255, 255));
+        dfaf.setText("REGISTRAR ALUMNO");
+        jPanel1.add(dfaf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -188,7 +187,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 469, Short.MAX_VALUE)
+                .addGap(0, 599, Short.MAX_VALUE)
                 .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,24 +206,60 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 30));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("GÉNERO:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("DIRECCION :");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("NOMBRE :");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+
+        txtFechaA.setBorder(null);
+        txtFechaA.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel1.add(txtFechaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 150, 30));
+
+        txtNombreA.setBorder(null);
+        txtNombreA.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel1.add(txtNombreA, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 150, 30));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("FECHA:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, -1, -1));
+
+        cbxGeneroA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
+        cbxGeneroA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxGeneroAActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbxGeneroA, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 150, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
@@ -252,16 +287,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMaximizeMouseExited
 
     private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizeActionPerformed
-        if(maximized){
-            //handle fullscreen - taskbar
-            Login.this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            Login.this.setMaximizedBounds(env.getMaximumWindowBounds());
-            maximized = false;
-        }else{
-            setExtendedState(JFrame.NORMAL);
-            maximized = true;
-        }
+        
     }//GEN-LAST:event_btnMaximizeActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
@@ -273,8 +299,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseExited
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.exit(0);
+        this.dispose(); 
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void cbxGeneroAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGeneroAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxGeneroAActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,20 +323,23 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new RegistroAlumno().setVisible(true);
             }
         });
     }
@@ -317,14 +350,17 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnMaximize;
     private javax.swing.JButton btnMinimize;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<String> cbxGeneroA;
+    private javax.swing.JLabel dfaf;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtDireccionA;
+    private javax.swing.JTextField txtFechaA;
+    private javax.swing.JTextField txtNombreA;
     // End of variables declaration//GEN-END:variables
 
     private void salir() {
@@ -332,51 +368,30 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void aceptar() {
-        if (getUser().charAt(0) == 'A') { // sila primera letra del username es A
-        JOptionPane.showMessageDialog(null,"Los alumnos no tieen acceso a este sistema"); // el alumno no tendrá acceso
-        } 
-        else {
-           String busqueda_usuario = metodos.buscarUsuarioRegistrado(getUser(), getPass());
-        
-        if (busqueda_usuario.equals("usuario encontrado")) {
-            String busqueda_nombre = metodos.buscar(txtUsuario.getText());
-            String busqueda_id = metodos.buscarId(txtUsuario.getText());
-            //DOCENTE LOGIN
-            if (getUser().charAt(0) == 'D') {
-               JOptionPane.showMessageDialog(null,"Bienvenido profesor " + busqueda_nombre);
-               DashboardProfesor ingreso = new DashboardProfesor();
-               
-               
-               ingreso.lnlNombre.setText(busqueda_nombre); 
-               ingreso.lnlCodigo.setText((busqueda_id));
-               ingreso.setVisible(true);
-               this.dispose();
-            } else if(getUser().charAt(0) == 'd'){
+        try {
             
-                JOptionPane.showMessageDialog(null,"Ingrese la primera letra en mayúscula");   
-               // PADRE LOGIN
-            } else if (getUser().charAt(0) == 'P' || getUser().charAt(0) == 'p') {
-               JOptionPane.showMessageDialog(null,"Bienvenido padre " + busqueda_nombre);
-               DashboardPadre ingreso = new DashboardPadre();
-               ingreso.lnlNombre.setText(busqueda_nombre);
-               ingreso.lblCodigo.setText((busqueda_id));
-               ingreso.setVisible(true);
-               this.dispose();
-            }
-        } else{
-                 JOptionPane.showMessageDialog(null,"Usuario no registrado");
-                 txtUsuario.setText("");
-                 txtPassword.setText("");
-         }
-        }
+       
+        String nombre = txtNombreA.getText();    
+        String direccion = txtDireccionA.getText(); 
+        String fecha = txtFechaA.getText();
+        String genero = String.valueOf(cbxGeneroA.getSelectedItem());
+         //CREACION POR EL SISTEMA
+        
+       String carnet = "a" + nombre.substring(0,2) + String.valueOf((int)(Math.random()*9)+1);
+        
+     metodos.guardarAlumno( carnet, nombre, direccion,  genero,  fecha);
       
+      AgregarProfesor a = new AgregarProfesor();
+         a.lblNombreA.setText(nombre);
+         a.lblIdUserA.setText(carnet);
+        a.setVisible(true);
+        this.dispose();
+        
     }
     
-    private String getUser(){
-    return txtUsuario.getText();
+    catch (Exception e) {
+    JOptionPane.showMessageDialog(null, e.getMessage());
+        } 
     }
     
-    private String getPass(){
-    return txtPassword.getText();
-    }
 }
